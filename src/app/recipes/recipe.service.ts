@@ -8,7 +8,7 @@ import { Subject } from "rxjs/Subject";
 export class RecipeService {
     recipesChanged = new Subject<Recipe[]>();
 
-    private recipes: Recipe[] = [
+    /* private recipes: Recipe[] = [
         new Recipe(
             'Piedmontese Rice', 
             'Creamy and cheesy champignon rice with seitan steak in brown sauce.', 
@@ -33,9 +33,15 @@ export class RecipeService {
                 new Ingredient('Garlic', 4),
                 new Ingredient('Olive oil', 100)
             ])
-    ];
+    ]; */
+    private recipes: Recipe[] = [];
 
     constructor(private shoppingListService: ShoppingListService){}
+
+    setRecipes(recipes: Recipe[]){
+        this.recipes = recipes;
+        this.recipesChanged.next(this.recipes.slice());
+    }
 
     getRecipes(){
         // Using slice to return a copy of the array. We don't want this array being modified outside this class
